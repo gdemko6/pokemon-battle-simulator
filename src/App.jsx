@@ -1,10 +1,8 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
+import Home from "./pages/Home";
 
 // Placeholder components for pages
-function Home() {
-  return <h1>Welcome to Pokémon Fight Simulator</h1>;
-}
 
 function Battle() {
   return <h1>Battle Page</h1>;
@@ -27,6 +25,7 @@ function App() {
         <Route path="/battle" element={<Battle />} />
         <Route path="/history" element={<History />} />
         <Route path="/about" element={<About />} />
+        <Route path="*" element={<h1>404: Page Not Found</h1>} />
       </Routes>
     </Router>
   );
