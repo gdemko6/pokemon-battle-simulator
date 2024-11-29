@@ -1,0 +1,50 @@
+.home {
+  text-align: center;
+  margin-top: 2rem;
+  background-color: #cc0000;
+}
+
+.home-title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #ffcc00;
+  margin-bottom: 1.5rem;
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
+    1px 1px 0 #000;
+}
+
+.home-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1rem;
+  padding: 20px;
+}
+
+.home-button {
+  padding: 0.8rem 1.5rem;
+  font-size: 1rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#home-battle-button {
+  background-color: #007bff;
+  color: white;
+}
+
+#home-about-button {
+  background-color: white;
+  color: black;
+}
+
+#home-battle-button:hover {
+  background-color: #0056b3;
+}
+
+#home-about-button:hover {
+  background-color: #e0e0e0;
+}
