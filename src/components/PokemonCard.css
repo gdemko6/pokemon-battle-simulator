@@ -56,3 +56,34 @@
   color: #555;
   font-size: 0.9rem;
 }
+
+h4.moves-heading {
+  border-bottom: 0.5px solid black;
+  color: #cc0000;
+  font-size: 18px;
+}
+
+.pokemon-moves ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  padding-top: 5px;
+}
+
+.pokemon-move {
+  display: flex;
+  justify-content: space-between; /* Align name to left and power to right */
+  margin-bottom: 0.5rem;
+}
+
+.move-name {
+  font-weight: bold;
+  color: #333;
+}
+
+.move-power {
+  font-weight: bold;
+  color: #007bff; /* Add some emphasis to the power */
+  text-align: right;
+  min-width: 50px; /* Ensures consistent alignment across items */
+}

@@ -1,22 +1,29 @@
 import PropTypes from "prop-types";
 import "./PokemonCard.css";
 
+function capitalizeFirstLetter(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
 function PokemonCard({ name, hp, image, moves }) {
   return (
     <div className="pokemon-card">
       <div className="pokemon-header">
-        <span className="pokemon-name">{name}</span>
+        <span className="pokemon-name">{capitalizeFirstLetter(name)}</span>
         <span className="pokemon-hp">HP: {hp}</span>
       </div>
       <div className="pokemon-image-container">
         <img src={image} alt={name} className="pokemon-image" />
       </div>
       <div className="pokemon-moves">
-        <h4>Moves</h4>
+        <h4 className="moves-heading">Moves</h4>
         <ul>
           {moves.map((move, index) => (
-            <li key={index}>
-              {move.name}: {move.power}
+            <li key={index} className="pokemon-move">
+              <span className="move-name">
+                {capitalizeFirstLetter(move.name)}
+              </span>
+              <span className="move-power">{move.power}</span>
             </li>
           ))}
         </ul>
