@@ -12,10 +12,17 @@
     1px 1px 0 #000;
 }
 
+.battle-inputs div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
 .battle-inputs {
   display: flex;
   justify-content: center;
-  gap: 1rem;
+  gap: 7rem;
   margin-bottom: 1rem;
 }
 
@@ -24,6 +31,21 @@
   font-size: 1rem;
   border: 1px solid #333;
   border-radius: 5px;
+}
+
+.battle-inputs button {
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.battle-inputs button:hover {
+  background-color: #0056b3;
 }
 
 .simulate-button {

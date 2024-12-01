@@ -79,7 +79,7 @@ function Battle() {
             value={input1}
             onChange={(e) => setInput1(e.target.value)}
           />
-          <button onClick={handleFetchPokemon1}>Choose Pokémon 1</button>
+          <button onClick={handleFetchPokemon1}>Select</button>
         </div>
         <div>
           <input
@@ -88,7 +88,7 @@ function Battle() {
             value={input2}
             onChange={(e) => setInput2(e.target.value)}
           />
-          <button onClick={handleFetchPokemon2}>Choose Pokémon 2</button>
+          <button onClick={handleFetchPokemon2}>Select</button>
         </div>
       </div>
 
