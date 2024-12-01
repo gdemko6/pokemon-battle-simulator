@@ -6,6 +6,8 @@ function Battle() {
   const [pokemon1, setPokemon1] = useState(null);
   const [pokemon2, setPokemon2] = useState(null);
 
+  // power is not included in the initial fetch
+  // so we use the nested url to get the power
   async function fetchMoveDetails(moveUrl) {
     try {
       const response = await fetch(moveUrl);
@@ -24,6 +26,8 @@ function Battle() {
       );
       const data = await response.json();
 
+      // grabs first two moves of a pokemon. uses Promise.all
+      // because the map function was returning unexpected array
       const moves = await Promise.all(
         data.moves.slice(0, 2).map(async (move) => {
           const power = await fetchMoveDetails(move.move.url);
