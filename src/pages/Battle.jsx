@@ -7,29 +7,30 @@ function Battle() {
   const [pokemon2, setPokemon2] = useState(null);
   const [input1, setInput1] = useState(""); // Input for Pokémon 1
   const [input2, setInput2] = useState(""); // Input for Pokémon 2
+  const [error1, setError1] = useState(""); // Error for Pokémon 1
+  const [error2, setError2] = useState(""); // Error for Pokémon 2
 
-  // power is not included in the initial fetch
-  // so we use the nested url to get the power
   async function fetchMoveDetails(moveUrl) {
     try {
       const response = await fetch(moveUrl);
       const data = await response.json();
-      return data.power || "N/A"; // Return power or "N/A" if unavailable
+      return data.power || "N/A";
     } catch (error) {
       console.error(`Error fetching move details:`, error);
       return "N/A";
     }
   }
 
-  async function fetchPokemonData(pokemonName, setPokemon) {
+  async function fetchPokemonData(pokemonName, setPokemon, setError) {
     try {
+      setError(""); // Clear any previous error
       const response = await fetch(
         `https://pokeapi.co/api/v2/pokemon/${pokemonName.toLowerCase()}`
       );
+      if (!response.ok) {
+        throw new Error("Pokémon not found");
+      }
       const data = await response.json();
-
-      // grabs first two moves of a pokemon. uses Promise.all
-      // because the map function was returning unexpected array
       const moves = await Promise.all(
         data.moves.slice(0, 2).map(async (move) => {
           const power = await fetchMoveDetails(move.move.url);
@@ -37,7 +38,6 @@ function Battle() {
         })
       );
 
-      // set state is passed in so that we can modify pokemon
       setPokemon({
         name: data.name,
         hp: data.stats.find((stat) => stat.stat.name === "hp").base_stat,
@@ -46,31 +46,28 @@ function Battle() {
       });
     } catch (error) {
       console.error(`Error fetching data for ${pokemonName}:`, error);
+      setPokemon(null); // Clear Pokémon data if fetch fails
+      setError("Pokémon not found. Please try again.");
     }
   }
 
-  // handles user input to fetch and update Pokémon 1
   const handleFetchPokemon1 = () => {
-    fetchPokemonData(input1, setPokemon1);
+    fetchPokemonData(input1, setPokemon1, setError1);
   };
 
-  // handles user input to fetch and update Pokémon 2
   const handleFetchPokemon2 = () => {
-    fetchPokemonData(input2, setPokemon2);
+    fetchPokemonData(input2, setPokemon2, setError2);
   };
 
   useEffect(() => {
-    fetchPokemonData("charizard", setPokemon1);
-    fetchPokemonData("pikachu", setPokemon2);
+    fetchPokemonData("charizard", setPokemon1, setError1);
+    fetchPokemonData("pikachu", setPokemon2, setError2);
   }, []);
-
-  if (!pokemon1 || !pokemon2) return <p>Loading...</p>;
 
   return (
     <div className="battle-page">
       <h1 className="battle-title">Battle Simulator</h1>
 
-      {/* Input fields for Pokémon selection */}
       <div className="battle-inputs">
         <div>
           <input
@@ -79,7 +76,8 @@ function Battle() {
             value={input1}
             onChange={(e) => setInput1(e.target.value)}
           />
-          <button onClick={handleFetchPokemon1}>Select</button>
+          <button onClick={handleFetchPokemon1}>Choose Pokémon 1</button>
+          {error1 && <p className="error-message">{error1}</p>}
         </div>
         <div>
           <input
@@ -88,14 +86,22 @@ function Battle() {
             value={input2}
             onChange={(e) => setInput2(e.target.value)}
           />
-          <button onClick={handleFetchPokemon2}>Select</button>
+          <button onClick={handleFetchPokemon2}>Choose Pokémon 2</button>
+          {error2 && <p className="error-message">{error2}</p>}
         </div>
       </div>
 
-      {/* Pokémon cards */}
       <div className="battle-cards">
-        <PokemonCard {...pokemon1} />
-        <PokemonCard {...pokemon2} />
+        {pokemon1 ? (
+          <PokemonCard {...pokemon1} />
+        ) : (
+          <p>Waiting for Pokémon 1...</p>
+        )}
+        {pokemon2 ? (
+          <PokemonCard {...pokemon2} />
+        ) : (
+          <p>Waiting for Pokémon 2...</p>
+        )}
       </div>
     </div>
   );
