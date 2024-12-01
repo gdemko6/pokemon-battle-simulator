@@ -5,6 +5,8 @@ import "./Battle.css";
 function Battle() {
   const [pokemon1, setPokemon1] = useState(null);
   const [pokemon2, setPokemon2] = useState(null);
+  const [input1, setInput1] = useState(""); // Input for Pokémon 1
+  const [input2, setInput2] = useState(""); // Input for Pokémon 2
 
   // power is not included in the initial fetch
   // so we use the nested url to get the power
@@ -47,6 +49,16 @@ function Battle() {
     }
   }
 
+  // handles user input to fetch and update Pokémon 1
+  const handleFetchPokemon1 = () => {
+    fetchPokemonData(input1, setPokemon1);
+  };
+
+  // handles user input to fetch and update Pokémon 2
+  const handleFetchPokemon2 = () => {
+    fetchPokemonData(input2, setPokemon2);
+  };
+
   useEffect(() => {
     fetchPokemonData("charizard", setPokemon1);
     fetchPokemonData("pikachu", setPokemon2);
@@ -57,6 +69,30 @@ function Battle() {
   return (
     <div className="battle-page">
       <h1 className="battle-title">Battle Simulator</h1>
+
+      {/* Input fields for Pokémon selection */}
+      <div className="battle-inputs">
+        <div>
+          <input
+            type="text"
+            placeholder="Enter Pokémon 1"
+            value={input1}
+            onChange={(e) => setInput1(e.target.value)}
+          />
+          <button onClick={handleFetchPokemon1}>Choose Pokémon 1</button>
+        </div>
+        <div>
+          <input
+            type="text"
+            placeholder="Enter Pokémon 2"
+            value={input2}
+            onChange={(e) => setInput2(e.target.value)}
+          />
+          <button onClick={handleFetchPokemon2}>Choose Pokémon 2</button>
+        </div>
+      </div>
+
+      {/* Pokémon cards */}
       <div className="battle-cards">
         <PokemonCard {...pokemon1} />
         <PokemonCard {...pokemon2} />
