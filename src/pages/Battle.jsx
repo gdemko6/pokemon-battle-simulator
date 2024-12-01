@@ -35,6 +35,7 @@ function Battle() {
         })
       );
 
+      // set state is passed in so that we can modify pokemon
       setPokemon({
         name: data.name,
         hp: data.stats.find((stat) => stat.stat.name === "hp").base_stat,
