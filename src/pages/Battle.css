@@ -75,3 +75,32 @@
   gap: 2rem;
   margin-top: 2rem;
 }
+
+#start-battle {
+  width: 10em;
+  height: 4em;
+  background-color: #007bff;
+  border-radius: 15px;
+  color: white;
+}
+
+#start-battle:hover {
+  color: #ffcc00;
+  background-color: #0056b3;
+}
+
+.perform-moves-container {
+  display: flex;
+  justify-content: center;
+  gap: 8rem;
+}
+
+.perform-moves-container button {
+  border-radius: 5px;
+  background-color: #ffcc00;
+  height: 3em;
+}
+
+.perform-moves-container button:hover {
+  background-color: #c9a103;
+}
