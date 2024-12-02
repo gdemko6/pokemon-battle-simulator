@@ -1,10 +1,12 @@
 import PropTypes from "prop-types";
 import "./PokemonCard.css";
 
+// needs to be moved to battle.jsx
 function capitalizeFirstLetter(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
+//recieves props from the fetch done in Battle.jsx
 function PokemonCard({ name, hp, image, moves }) {
   return (
     <div className="pokemon-card">
@@ -32,6 +34,7 @@ function PokemonCard({ name, hp, image, moves }) {
   );
 }
 
+// ensure no problems will occur due to invalid prop type
 PokemonCard.propTypes = {
   name: PropTypes.string.isRequired,
   hp: PropTypes.number.isRequired,
