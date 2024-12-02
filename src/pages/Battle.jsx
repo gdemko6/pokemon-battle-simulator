@@ -10,20 +10,23 @@ function Battle() {
   const [error1, setError1] = useState(""); // Error if Pokémon not found
   const [error2, setError2] = useState("");
 
+  //power is not included in the first fetch
   async function fetchMovePower(moveUrl) {
     try {
       const response = await fetch(moveUrl);
       const data = await response.json();
-      return data.power || "N/A";
+      return data.power;
     } catch (error) {
       console.error(`Error fetching move details:`, error);
       return "N/A";
     }
   }
 
+  // we pass in name to search for that pokemon, and pass
+  // the set state variables to easily change the states
   async function fetchPokemonData(pokemonName, setPokemon, setError) {
     try {
-      setError(""); // Clear any previous error
+      setError("");
       const response = await fetch(
         `https://pokeapi.co/api/v2/pokemon/${pokemonName.toLowerCase()}`
       );
@@ -31,6 +34,8 @@ function Battle() {
         throw new Error("Pokémon not found");
       }
       const data = await response.json();
+
+      // retrieving the name of the move and the move power
       const moves = await Promise.all(
         data.moves.slice(0, 2).map(async (move) => {
           const power = await fetchMovePower(move.move.url);
@@ -38,6 +43,7 @@ function Battle() {
         })
       );
 
+      // changing the pokemon state to reflect the users search
       setPokemon({
         name: data.name,
         hp: data.stats.find((stat) => stat.stat.name === "hp").base_stat,
