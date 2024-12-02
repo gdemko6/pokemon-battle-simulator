@@ -129,6 +129,39 @@ function Battle() {
             Battle!
           </button>
         )}
+
+        {battleState === "battle started" && (
+          <div className="perform-moves-container">
+            <div className="perform-moves-left">
+              <button
+                className="pokemonOneMoveButton"
+                onClick={() => performMove(pokemon1, pokemon2, setPokemon2, 1)}
+              >
+                Choose Move 1
+              </button>
+              <button
+                className="pokemonOneMoveButton"
+                onClick={() => performMove(pokemon1, pokemon2, setPokemon2, 2)}
+              >
+                Choose Move 2
+              </button>
+            </div>
+            <div className="perform-moves-right">
+              <button
+                className="pokemonTwoMoveButton"
+                onClick={() => performMove(pokemon2, pokemon1, setPokemon1, 1)}
+              >
+                Choose Move 1
+              </button>
+              <button
+                className="pokemonTwoMoveButton"
+                onClick={() => performMove(pokemon2, pokemon1, setPokemon1, 2)}
+              >
+                Choose Move 2
+              </button>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
