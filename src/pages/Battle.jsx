@@ -9,6 +9,7 @@ function Battle() {
   const [input2, setInput2] = useState("");
   const [error1, setError1] = useState(""); // Error if Pokémon not found
   const [error2, setError2] = useState("");
+  const [battleState, setBattleState] = useState("not started");
 
   const performMove = (pokemon, targetPokemon, setTargetPokemon, move) => {
     const moveChosen = pokemon.moves[move - 1];
@@ -73,6 +74,10 @@ function Battle() {
     fetchPokemonData(input2, setPokemon2, setError2);
   };
 
+  const handleStartBattle = () => {
+    setBattleState("battle started");
+  };
+
   useEffect(() => {
     fetchPokemonData("charizard", setPokemon1, setError1);
     fetchPokemonData("pikachu", setPokemon2, setError2);
@@ -115,6 +120,14 @@ function Battle() {
           <PokemonCard {...pokemon2} />
         ) : (
           <p>Waiting for Pokémon 2...</p>
+        )}
+      </div>
+
+      <div className="battle-buttons">
+        {battleState === "not started" && (
+          <button id="start-battle" onClick={handleStartBattle}>
+            Battle!
+          </button>
         )}
       </div>
     </div>
