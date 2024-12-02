@@ -10,6 +10,14 @@ function Battle() {
   const [error1, setError1] = useState(""); // Error if Pokémon not found
   const [error2, setError2] = useState("");
 
+  const performMove = (pokemon, targetPokemon, setTargetPokemon, move) => {
+    const moveChosen = pokemon.moves[move - 1];
+    setTargetPokemon({
+      ...targetPokemon,
+      hp: targetPokemon.hp - moveChosen.power,
+    });
+  };
+
   //power is not included in the first fetch
   async function fetchMovePower(moveUrl) {
     try {
