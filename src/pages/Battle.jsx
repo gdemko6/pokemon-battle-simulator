@@ -5,12 +5,12 @@ import "./Battle.css";
 function Battle() {
   const [pokemon1, setPokemon1] = useState(null);
   const [pokemon2, setPokemon2] = useState(null);
-  const [input1, setInput1] = useState(""); // Input for Pokémon 1
-  const [input2, setInput2] = useState(""); // Input for Pokémon 2
-  const [error1, setError1] = useState(""); // Error for Pokémon 1
-  const [error2, setError2] = useState(""); // Error for Pokémon 2
+  const [input1, setInput1] = useState("");
+  const [input2, setInput2] = useState("");
+  const [error1, setError1] = useState(""); // Error if Pokémon not found
+  const [error2, setError2] = useState("");
 
-  async function fetchMoveDetails(moveUrl) {
+  async function fetchMovePower(moveUrl) {
     try {
       const response = await fetch(moveUrl);
       const data = await response.json();
@@ -33,7 +33,7 @@ function Battle() {
       const data = await response.json();
       const moves = await Promise.all(
         data.moves.slice(0, 2).map(async (move) => {
-          const power = await fetchMoveDetails(move.move.url);
+          const power = await fetchMovePower(move.move.url);
           return { name: move.move.name, power };
         })
       );
