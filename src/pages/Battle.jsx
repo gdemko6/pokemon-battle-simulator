@@ -13,9 +13,12 @@ function Battle() {
 
   const performMove = (pokemon, targetPokemon, setTargetPokemon, move) => {
     const moveChosen = pokemon.moves[move - 1];
+
+    const newHp = Math.max(0, targetPokemon.hp - moveChosen.power);
+
     setTargetPokemon({
       ...targetPokemon,
-      hp: targetPokemon.hp - moveChosen.power,
+      hp: newHp,
     });
   };
 
@@ -47,7 +50,7 @@ function Battle() {
       // retrieving the name of the move and the move power
       const moves = await Promise.all(
         data.moves.slice(0, 2).map(async (move) => {
-          const power = await fetchMovePower(move.move.url);
+          const power = Math.floor((await fetchMovePower(move.move.url))/2);
           return { name: move.move.name, power };
         })
       );
