@@ -9,6 +9,7 @@ function Battle() {
   const [input2, setInput2] = useState("");
   const [error1, setError1] = useState(""); // Error if Pokémon not found
   const [error2, setError2] = useState("");
+  const [winner, setWinner] = useState(null);
   const [battleState, setBattleState] = useState("not started");
 
   const performMove = (pokemon, targetPokemon, setTargetPokemon, move) => {
@@ -50,7 +51,7 @@ function Battle() {
       // retrieving the name of the move and the move power
       const moves = await Promise.all(
         data.moves.slice(0, 2).map(async (move) => {
-          const power = Math.floor((await fetchMovePower(move.move.url))/2);
+          const power = Math.floor((await fetchMovePower(move.move.url)) / 2);
           return { name: move.move.name, power };
         })
       );
@@ -79,6 +80,10 @@ function Battle() {
 
   const handleStartBattle = () => {
     setBattleState("battle started");
+  };
+
+  const handleWin = (pokemon) => {
+    setWinner(pokemon);
   };
 
   useEffect(() => {
