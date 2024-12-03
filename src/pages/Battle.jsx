@@ -17,6 +17,11 @@ function Battle() {
 
     const newHp = Math.max(0, targetPokemon.hp - moveChosen.power);
 
+    //target pokemon has fainted
+    if (newHp === 0) {
+      handleWin(pokemon);
+      setBattleState("not started");
+    }
     setTargetPokemon({
       ...targetPokemon,
       hp: newHp,
