@@ -20,7 +20,6 @@ function Battle() {
     //target pokemon has fainted
     if (newHp === 0) {
       handleWin(pokemon);
-      setBattleState("not started");
     }
     setTargetPokemon({
       ...targetPokemon,
@@ -87,13 +86,24 @@ function Battle() {
     setBattleState("battle started");
   };
 
-  const handleWin = (pokemon) => {
+  const handleWin = async (pokemon) => {
     setWinner(pokemon);
+    setBattleState("not started");
+    //winning screen stays for 4 seconds before new match
+    await new Promise((resolve) => setTimeout(resolve, 4000));
+
+    //reset for next game
+    setWinner(null);
+    await setDefaultPokemon();
   };
 
+  async function setDefaultPokemon() {
+    await fetchPokemonData("charizard", setPokemon1, setError1);
+    await fetchPokemonData("pikachu", setPokemon2, setError2);
+  }
+
   useEffect(() => {
-    fetchPokemonData("charizard", setPokemon1, setError1);
-    fetchPokemonData("pikachu", setPokemon2, setError2);
+    setDefaultPokemon();
   }, []);
 
   return (
