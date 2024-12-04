@@ -91,10 +91,7 @@ function Battle() {
     setWinner(pokemon);
     setBattleState("not started");
     //winning screen stays for 7 seconds before new match
-    await new Promise((resolve) => setTimeout(resolve, 7000));
 
-    //reset for next game
-    setWinner(null);
     await setDefaultPokemon();
   };
 
@@ -188,6 +185,23 @@ function Battle() {
             </div>
           </div>
         )}
+      </div>
+
+      <div
+        className="modal-overlay"
+        style={{ display: winner ? "flex" : "none" }}
+      >
+        <div className="modal-container">
+          <h2>{winner?.name} Wins!</h2>
+          <img
+            src={winner?.image}
+            alt={`${winner?.name}`}
+            className="modal-image"
+          />
+          <button onClick={() => setWinner(null)} className="close-modal">
+            Close
+          </button>
+        </div>
       </div>
     </div>
   );
