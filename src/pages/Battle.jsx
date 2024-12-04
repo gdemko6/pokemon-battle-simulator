@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import PokemonCard from "../components/PokemonCard";
+import Confetti from "react-confetti";
 import "./Battle.css";
 
 function Battle() {
@@ -89,8 +90,8 @@ function Battle() {
   const handleWin = async (pokemon) => {
     setWinner(pokemon);
     setBattleState("not started");
-    //winning screen stays for 4 seconds before new match
-    await new Promise((resolve) => setTimeout(resolve, 4000));
+    //winning screen stays for 7 seconds before new match
+    await new Promise((resolve) => setTimeout(resolve, 7000));
 
     //reset for next game
     setWinner(null);
@@ -109,6 +110,8 @@ function Battle() {
   return (
     <div className="battle-page">
       <h1 className="battle-title">Battle Simulator</h1>
+
+      {winner && <Confetti />}
 
       <div className="battle-inputs">
         <div>
