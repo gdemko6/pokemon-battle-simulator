@@ -141,16 +141,65 @@ function Battle() {
       </div>
 
       <div className="battle-cards">
-        {pokemon1 ? (
-          <PokemonCard {...pokemon1} />
-        ) : (
-          <p>Waiting for Pokémon 1...</p>
-        )}
-        {pokemon2 ? (
-          <PokemonCard {...pokemon2} />
-        ) : (
-          <p>Waiting for Pokémon 2...</p>
-        )}
+        <div className="pokemon-container">
+          {pokemon1 ? (
+            <>
+              <PokemonCard {...pokemon1} />
+              {battleState === "battle started" && turn === pokemon1?.name && (
+                <div className="perform-moves">
+                  <button
+                    className="pokemonOneMoveButton"
+                    onClick={() =>
+                      performMove(pokemon1, pokemon2, setPokemon2, 1)
+                    }
+                  >
+                    Choose Move 1
+                  </button>
+                  <button
+                    className="pokemonOneMoveButton"
+                    onClick={() =>
+                      performMove(pokemon1, pokemon2, setPokemon2, 2)
+                    }
+                  >
+                    Choose Move 2
+                  </button>
+                </div>
+              )}
+            </>
+          ) : (
+            <p>Waiting for Pokémon 1...</p>
+          )}
+        </div>
+
+        <div className="pokemon-container">
+          {pokemon2 ? (
+            <>
+              <PokemonCard {...pokemon2} />
+              {battleState === "battle started" && turn === pokemon2?.name && (
+                <div className="perform-moves">
+                  <button
+                    className="pokemonTwoMoveButton"
+                    onClick={() =>
+                      performMove(pokemon2, pokemon1, setPokemon1, 1)
+                    }
+                  >
+                    Choose Move 1
+                  </button>
+                  <button
+                    className="pokemonTwoMoveButton"
+                    onClick={() =>
+                      performMove(pokemon2, pokemon1, setPokemon1, 2)
+                    }
+                  >
+                    Choose Move 2
+                  </button>
+                </div>
+              )}
+            </>
+          ) : (
+            <p>Waiting for Pokémon 2...</p>
+          )}
+        </div>
       </div>
 
       <div className="battle-buttons">
@@ -158,51 +207,6 @@ function Battle() {
           <button id="start-battle" onClick={handleStartBattle}>
             Battle!
           </button>
-        )}
-
-        {battleState === "battle started" && (
-          <div className="perform-moves-container">
-            {turn === pokemon1.name && (
-              <div className="perform-moves-left">
-                <button
-                  className="pokemonOneMoveButton"
-                  onClick={() =>
-                    performMove(pokemon1, pokemon2, setPokemon2, 1)
-                  }
-                >
-                  Choose Move 1
-                </button>
-                <button
-                  className="pokemonOneMoveButton"
-                  onClick={() =>
-                    performMove(pokemon1, pokemon2, setPokemon2, 2)
-                  }
-                >
-                  Choose Move 2
-                </button>
-              </div>
-            )}
-            {turn === pokemon2.name && (
-              <div className="perform-moves-right">
-                <button
-                  className="pokemonTwoMoveButton"
-                  onClick={() =>
-                    performMove(pokemon2, pokemon1, setPokemon1, 1)
-                  }
-                >
-                  Choose Move 1
-                </button>
-                <button
-                  className="pokemonTwoMoveButton"
-                  onClick={() =>
-                    performMove(pokemon2, pokemon1, setPokemon1, 2)
-                  }
-                >
-                  Choose Move 2
-                </button>
-              </div>
-            )}
-          </div>
         )}
       </div>
 
