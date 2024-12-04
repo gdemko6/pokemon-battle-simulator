@@ -22,15 +22,16 @@ function Battle() {
     const moveChosen = pokemon.moves[move - 1];
 
     const newHp = Math.max(0, targetPokemon.hp - moveChosen.power);
-
     //target pokemon has fainted
     if (newHp === 0) {
       handleWin(pokemon);
+      return;
     }
     setTargetPokemon({
       ...targetPokemon,
       hp: newHp,
     });
+    setTurn(targetPokemon.name);
   };
 
   //power is not included in the first fetch
@@ -90,7 +91,7 @@ function Battle() {
 
   const handleStartBattle = () => {
     setBattleState("battle started");
-    setTurn(pokemon1);
+    setTurn(pokemon1.name);
   };
 
   const handleWin = async (pokemon) => {
@@ -161,7 +162,7 @@ function Battle() {
 
         {battleState === "battle started" && (
           <div className="perform-moves-container">
-            {turn === pokemon1 && (
+            {turn === pokemon1.name && (
               <div className="perform-moves-left">
                 <button
                   className="pokemonOneMoveButton"
@@ -181,7 +182,7 @@ function Battle() {
                 </button>
               </div>
             )}
-            {turn === pokemon2 && (
+            {turn === pokemon2.name && (
               <div className="perform-moves-right">
                 <button
                   className="pokemonTwoMoveButton"
