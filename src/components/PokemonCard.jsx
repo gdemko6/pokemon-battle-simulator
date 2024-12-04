@@ -1,17 +1,12 @@
 import PropTypes from "prop-types";
 import "./PokemonCard.css";
 
-// needs to be moved to battle.jsx
-function capitalizeFirstLetter(string) {
-  return string.charAt(0).toUpperCase() + string.slice(1);
-}
-
 //recieves props from the fetch done in Battle.jsx
 function PokemonCard({ name, hp, image, moves }) {
   return (
     <div className="pokemon-card">
       <div className="pokemon-header">
-        <span className="pokemon-name">{capitalizeFirstLetter(name)}</span>
+        <span className="pokemon-name">{name}</span>
         <span className="pokemon-hp">HP: {hp}</span>
       </div>
       <div className="pokemon-image-container">
@@ -22,9 +17,7 @@ function PokemonCard({ name, hp, image, moves }) {
         <ul>
           {moves.map((move, index) => (
             <li key={index} className="pokemon-move">
-              <span className="move-name">
-                {capitalizeFirstLetter(move.name)}
-              </span>
+              <span className="move-name">{move.name}</span>
               <span className="move-power">{move.power}</span>
             </li>
           ))}

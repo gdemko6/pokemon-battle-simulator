@@ -13,6 +13,10 @@ function Battle() {
   const [winner, setWinner] = useState(null);
   const [battleState, setBattleState] = useState("not started");
 
+  function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
+
   const performMove = (pokemon, targetPokemon, setTargetPokemon, move) => {
     const moveChosen = pokemon.moves[move - 1];
 
@@ -63,7 +67,7 @@ function Battle() {
 
       // changing the pokemon state to reflect the users search
       setPokemon({
-        name: data.name,
+        name: capitalizeFirstLetter(data.name),
         hp: data.stats.find((stat) => stat.stat.name === "hp").base_stat * 2,
         image: data.sprites.other["official-artwork"].front_default,
         moves,
