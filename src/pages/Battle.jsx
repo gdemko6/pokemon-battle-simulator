@@ -12,6 +12,7 @@ function Battle() {
   const [error2, setError2] = useState("");
   const [winner, setWinner] = useState(null);
   const [battleState, setBattleState] = useState("not started");
+  const [turn, setTurn] = useState(null);
 
   function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
@@ -89,6 +90,7 @@ function Battle() {
 
   const handleStartBattle = () => {
     setBattleState("battle started");
+    setTurn(pokemon1);
   };
 
   const handleWin = async (pokemon) => {
@@ -159,34 +161,46 @@ function Battle() {
 
         {battleState === "battle started" && (
           <div className="perform-moves-container">
-            <div className="perform-moves-left">
-              <button
-                className="pokemonOneMoveButton"
-                onClick={() => performMove(pokemon1, pokemon2, setPokemon2, 1)}
-              >
-                Choose Move 1
-              </button>
-              <button
-                className="pokemonOneMoveButton"
-                onClick={() => performMove(pokemon1, pokemon2, setPokemon2, 2)}
-              >
-                Choose Move 2
-              </button>
-            </div>
-            <div className="perform-moves-right">
-              <button
-                className="pokemonTwoMoveButton"
-                onClick={() => performMove(pokemon2, pokemon1, setPokemon1, 1)}
-              >
-                Choose Move 1
-              </button>
-              <button
-                className="pokemonTwoMoveButton"
-                onClick={() => performMove(pokemon2, pokemon1, setPokemon1, 2)}
-              >
-                Choose Move 2
-              </button>
-            </div>
+            {turn === pokemon1 && (
+              <div className="perform-moves-left">
+                <button
+                  className="pokemonOneMoveButton"
+                  onClick={() =>
+                    performMove(pokemon1, pokemon2, setPokemon2, 1)
+                  }
+                >
+                  Choose Move 1
+                </button>
+                <button
+                  className="pokemonOneMoveButton"
+                  onClick={() =>
+                    performMove(pokemon1, pokemon2, setPokemon2, 2)
+                  }
+                >
+                  Choose Move 2
+                </button>
+              </div>
+            )}
+            {turn === pokemon2 && (
+              <div className="perform-moves-right">
+                <button
+                  className="pokemonTwoMoveButton"
+                  onClick={() =>
+                    performMove(pokemon2, pokemon1, setPokemon1, 1)
+                  }
+                >
+                  Choose Move 1
+                </button>
+                <button
+                  className="pokemonTwoMoveButton"
+                  onClick={() =>
+                    performMove(pokemon2, pokemon1, setPokemon1, 2)
+                  }
+                >
+                  Choose Move 2
+                </button>
+              </div>
+            )}
           </div>
         )}
       </div>
