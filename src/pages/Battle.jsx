@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import PokemonCard from "../components/PokemonCard";
 import Confetti from "react-confetti";
 import "./Battle.css";
+import "./Animation.css";
 
 function Battle() {
   const [pokemon1, setPokemon1] = useState(null);
@@ -13,6 +14,7 @@ function Battle() {
   const [winner, setWinner] = useState(null);
   const [battleState, setBattleState] = useState("not started");
   const [turn, setTurn] = useState(null);
+  const [attackingPokemon, setAttackingPokemon] = useState(null);
 
   function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
@@ -31,6 +33,11 @@ function Battle() {
       ...targetPokemon,
       hp: newHp,
     });
+
+    setAttackingPokemon(pokemon);
+    setTimeout(() => {
+      setAttackingPokemon(null);
+    }, 500);
     setTurn(targetPokemon.name);
   };
 
@@ -143,7 +150,11 @@ function Battle() {
       </div>
 
       <div className="battle-cards">
-        <div className="pokemon-container">
+        <div
+          className={`pokemon-container ${
+            attackingPokemon === pokemon1?.name ? "attackingPokemonTwo" : ""
+          }`}
+        >
           {pokemon1 ? (
             <>
               <PokemonCard {...pokemon1} />
@@ -173,7 +184,11 @@ function Battle() {
           )}
         </div>
 
-        <div className="pokemon-container">
+        <div
+          className={`pokemon-container ${
+            attackingPokemon === pokemon2?.name ? "attackingPokemonOne" : ""
+          }`}
+        >
           {pokemon2 ? (
             <>
               <PokemonCard {...pokemon2} />
