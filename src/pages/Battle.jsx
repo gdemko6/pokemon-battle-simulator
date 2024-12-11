@@ -83,10 +83,12 @@ function Battle() {
 
   const handleFetchPokemon1 = () => {
     fetchPokemonData(input1, setPokemon1, setError1);
+    setInput1("");
   };
 
   const handleFetchPokemon2 = () => {
     fetchPokemonData(input2, setPokemon2, setError2);
+    setInput2("");
   };
 
   const handleStartBattle = () => {
