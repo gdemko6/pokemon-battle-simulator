@@ -89,22 +89,6 @@
   background-color: #0056b3;
 }
 
-.perform-moves-container {
-  display: flex;
-  justify-content: center;
-  gap: 8rem;
-}
-
-.perform-moves-container button {
-  border-radius: 5px;
-  background-color: #ffcc00;
-  height: 3em;
-}
-
-.perform-moves-container button:hover {
-  background-color: #c9a103;
-}
-
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -152,4 +136,17 @@
 
 .close-modal:hover {
   background-color: #0056b3;
+}
+
+div.perform-moves {
+  display: flex;
+  gap: 5px;
+  justify-content: center;
+}
+
+div.perform-moves .pokemonTwoMoveButton,
+div.perform-moves .pokemonOneMoveButton {
+  border-radius: 5px;
+  background-color: #ffcc00;
+  height: 3em;
 }
