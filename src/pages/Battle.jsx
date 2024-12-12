@@ -22,8 +22,13 @@ function Battle() {
 
   const performMove = (pokemon, targetPokemon, setTargetPokemon, move) => {
     const moveChosen = pokemon.moves[move - 1];
-
     const newHp = Math.max(0, targetPokemon.hp - moveChosen.power);
+
+    setAttackingPokemon(pokemon);
+    setTimeout(() => {
+      setAttackingPokemon(null);
+    }, 500);
+
     //target pokemon has fainted
     if (newHp === 0) {
       handleWin(pokemon);
@@ -33,12 +38,6 @@ function Battle() {
       ...targetPokemon,
       hp: newHp,
     });
-
-    setAttackingPokemon(pokemon);
-    console.log(attackingPokemon);
-    setTimeout(() => {
-      setAttackingPokemon(null);
-    }, 500);
 
     setTurn(targetPokemon.name);
   };
@@ -115,7 +114,7 @@ function Battle() {
 
   async function setDefaultPokemon() {
     await fetchPokemonData("charizard", setPokemon1, setError1);
-    await fetchPokemonData("pikachu", setPokemon2, setError2);
+    await fetchPokemonData("blastoise", setPokemon2, setError2);
   }
 
   useEffect(() => {
