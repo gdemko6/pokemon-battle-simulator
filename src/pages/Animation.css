@@ -11,7 +11,7 @@
     transform: translateX(0);
   }
   50% {
-    transform: translateX(150px); /* Move to the right (towards Pokémon 2) */
+    transform: translateX(125px);
   }
   100% {
     transform: translateX(0);
@@ -23,7 +23,7 @@
     transform: translateX(0);
   }
   50% {
-    transform: translateX(-150px); /* Move to the left (towards Pokémon 1) */
+    transform: translateX(-125px);
   }
   100% {
     transform: translateX(0);
