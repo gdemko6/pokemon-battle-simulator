@@ -1,8 +1,8 @@
-.attackPokemonTwo {
+.attackingPokemonTwo {
   animation: attackTwo 0.5s ease forwards;
 }
 
-.attackPokemonOne {
+.attackingPokemonOne {
   animation: attackOne 0.5s ease forwards;
 }
 
@@ -11,7 +11,7 @@
     transform: translateX(0);
   }
   50% {
-    transform: translateX(50px); /* Move to the right (towards Pokémon 2) */
+    transform: translateX(150px); /* Move to the right (towards Pokémon 2) */
   }
   100% {
     transform: translateX(0);
@@ -23,7 +23,7 @@
     transform: translateX(0);
   }
   50% {
-    transform: translateX(-50px); /* Move to the left (towards Pokémon 1) */
+    transform: translateX(-150px); /* Move to the left (towards Pokémon 1) */
   }
   100% {
     transform: translateX(0);

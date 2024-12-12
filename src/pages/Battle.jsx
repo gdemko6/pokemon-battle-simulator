@@ -35,9 +35,11 @@ function Battle() {
     });
 
     setAttackingPokemon(pokemon);
+    console.log(attackingPokemon);
     setTimeout(() => {
       setAttackingPokemon(null);
     }, 500);
+
     setTurn(targetPokemon.name);
   };
 
@@ -152,7 +154,9 @@ function Battle() {
       <div className="battle-cards">
         <div
           className={`pokemon-container ${
-            attackingPokemon === pokemon1?.name ? "attackingPokemonTwo" : ""
+            attackingPokemon?.name === pokemon1?.name
+              ? "attackingPokemonTwo"
+              : ""
           }`}
         >
           {pokemon1 ? (
@@ -186,7 +190,9 @@ function Battle() {
 
         <div
           className={`pokemon-container ${
-            attackingPokemon === pokemon2?.name ? "attackingPokemonOne" : ""
+            attackingPokemon?.name === pokemon2?.name
+              ? "attackingPokemonOne"
+              : ""
           }`}
         >
           {pokemon2 ? (
