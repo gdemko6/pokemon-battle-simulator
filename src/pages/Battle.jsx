@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import PokemonCard from "../components/PokemonCard";
 import Confetti from "react-confetti";
-import { capitalizeFirstLetter } from "../utils/string";
 import "./Battle.css";
 import "./Animation.css";
 import PokemonBattle from "../services/PokemonBattle";
+import pokeApiService from "../services/pokeApiService";
 
 function Battle() {
   const [pokemon1, setPokemon1] = useState(null);
@@ -17,6 +17,16 @@ function Battle() {
   const [battleState, setBattleState] = useState("not started");
   const [turn, setTurn] = useState(null);
   const [attackingPokemon, setAttackingPokemon] = useState(null);
+
+  const handleFetchPokemon1 = () => {
+    pokeApiService.fetchPokemonData(input1, setPokemon1, setError1);
+    setInput1("");
+  };
+
+  const handleFetchPokemon2 = () => {
+    pokeApiService.fetchPokemonData(input2, setPokemon2, setError2);
+    setInput2("");
+  };
 
   const handlePerformMove = (
     pokemon,
@@ -48,66 +58,9 @@ function Battle() {
     setTurn(nextTurn);
   };
 
-  //power is not included in the first fetch
-  async function fetchMovePower(moveUrl) {
-    try {
-      const response = await fetch(moveUrl);
-      const data = await response.json();
-      return data.power;
-    } catch (error) {
-      console.error(`Error fetching move details:`, error);
-      return "N/A";
-    }
-  }
-
-  // we pass in name to search for that pokemon, and pass
-  // the set state variables to easily change the states
-  async function fetchPokemonData(pokemonName, setPokemon, setError) {
-    try {
-      setError("");
-      const response = await fetch(
-        `https://pokeapi.co/api/v2/pokemon/${pokemonName.toLowerCase()}`
-      );
-      if (!response.ok) {
-        throw new Error("Pokémon not found");
-      }
-      const data = await response.json();
-
-      // retrieving the name of the move and the move power
-      const moves = await Promise.all(
-        data.moves.slice(0, 2).map(async (move) => {
-          const power = Math.floor((await fetchMovePower(move.move.url)) / 2);
-          return { name: move.move.name, power };
-        })
-      );
-
-      // changing the pokemon state to reflect the users search
-      setPokemon({
-        name: capitalizeFirstLetter(data.name),
-        hp: data.stats.find((stat) => stat.stat.name === "hp").base_stat * 2,
-        image: data.sprites.other["official-artwork"].front_default,
-        moves,
-      });
-    } catch (error) {
-      console.error(`Error fetching data for ${pokemonName}:`, error);
-      setPokemon(null); // Clear Pokémon data if fetch fails
-      setError("Pokémon not found. Please try again.");
-    }
-  }
-
-  const handleFetchPokemon1 = () => {
-    fetchPokemonData(input1, setPokemon1, setError1);
-    setInput1("");
-  };
-
-  const handleFetchPokemon2 = () => {
-    fetchPokemonData(input2, setPokemon2, setError2);
-    setInput2("");
-  };
-
   const handleStartBattle = () => {
     const { battleState: newBattleState, turn: newTurn } =
-      PokemonBattle.startBattle(pokemon1, pokemon2);
+      PokemonBattle.startBattle(pokemon1);
     setBattleState(newBattleState);
     setTurn(newTurn);
   };
@@ -119,8 +72,8 @@ function Battle() {
   };
 
   async function setDefaultPokemon() {
-    await fetchPokemonData("charizard", setPokemon1, setError1);
-    await fetchPokemonData("blastoise", setPokemon2, setError2);
+    await pokeApiService.fetchPokemonData("charizard", setPokemon1, setError1);
+    await pokeApiService.fetchPokemonData("blastoise", setPokemon2, setError2);
   }
 
   useEffect(() => {

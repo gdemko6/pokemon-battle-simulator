@@ -1,6 +1,15 @@
 .home {
   text-align: center;
+  display: flex;
+  flex-direction: column;
+}
+
+header {
   background-color: #cc0000;
+}
+
+main {
+  background-color: #ffcc00;
 }
 
 .home-title {

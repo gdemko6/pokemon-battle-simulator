@@ -1,4 +1,6 @@
 import { useNavigate } from "react-router-dom";
+import PokemonCard from "../components/PokemonCard";
+import Battle from "./Battle";
 import "./Home.css";
 
 function Home() {
@@ -6,24 +8,27 @@ function Home() {
 
   return (
     <div className="home">
-      <h1 className="home-title">Pokémon Battle Simulator</h1>
+      <header>
+        <h1 className="home-title">Pokémon Battle Simulator</h1>
 
-      <div className="home-buttons">
-        <button
-          className="home-button"
-          id="home-battle-button"
-          onClick={() => navigate("/battle")}
-        >
-          Battle Now
-        </button>
-        <button
-          className="home-button"
-          id="home-about-button"
-          onClick={() => navigate("/about")}
-        >
-          About
-        </button>
-      </div>
+        <div className="home-buttons">
+          <button
+            className="home-button"
+            id="home-battle-button"
+            onClick={() => navigate("/battle")}
+          >
+            Battle Now
+          </button>
+          <button
+            className="home-button"
+            id="home-about-button"
+            onClick={() => navigate("/about")}
+          >
+            About
+          </button>
+        </div>
+      </header>
+      <main>this is lorem ipsum</main>
     </div>
   );
 }
