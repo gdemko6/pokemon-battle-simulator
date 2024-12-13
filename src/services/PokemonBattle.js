@@ -12,8 +12,9 @@ class PokemonBattle {
     const newHp = Math.max(0, defender.hp - moveChosen.power);
     const fainted = newHp === 0;
     const nextTurn = defender.name;
+    const winner = fainted ? attacker : null;
 
-    return { newHp, fainted, nextTurn };
+    return { newHp, nextTurn, winner };
   }
 }
 

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import PokemonCard from "../components/PokemonCard";
 import Confetti from "react-confetti";
+import { capitalizeFirstLetter } from "../utils/string";
 import "./Battle.css";
 import "./Animation.css";
 import PokemonBattle from "../services/PokemonBattle";
@@ -17,31 +18,27 @@ function Battle() {
   const [turn, setTurn] = useState(null);
   const [attackingPokemon, setAttackingPokemon] = useState(null);
 
-  function capitalizeFirstLetter(string) {
-    return string.charAt(0).toUpperCase() + string.slice(1);
-  }
-
   const handlePerformMove = (
     pokemon,
     targetPokemon,
     setTargetPokemon,
     move
   ) => {
-    const { newHp, fainted, nextTurn } = PokemonBattle.performMove(
+    const { newHp, nextTurn, winner } = PokemonBattle.performMove(
       pokemon,
       targetPokemon,
       move
     );
 
+    if (winner) {
+      handleWin(winner);
+      return;
+    }
+
     setAttackingPokemon(pokemon);
     setTimeout(() => {
       setAttackingPokemon(null);
     }, 500);
-
-    if (fainted) {
-      handleWin(pokemon);
-      return;
-    }
 
     setTargetPokemon({
       ...targetPokemon,
@@ -115,11 +112,9 @@ function Battle() {
     setTurn(newTurn);
   };
 
-  const handleWin = async (pokemon) => {
-    setWinner(pokemon);
+  const handleWin = async (winner) => {
+    setWinner(winner);
     setBattleState("not started");
-    //winning screen stays for 7 seconds before new match
-
     await setDefaultPokemon();
   };
 
