@@ -1,5 +1,5 @@
 class PokemonBattle {
-  startBattle(pokemon1, pokemon2) {
+  startBattle(pokemon1) {
     // Decide who starts, and define any initial battle state.
     return {
       battleState: "battle started",
