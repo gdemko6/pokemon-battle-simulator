@@ -3,6 +3,7 @@ import PokemonCard from "../components/PokemonCard";
 import Confetti from "react-confetti";
 import "./Battle.css";
 import "./Animation.css";
+import PokemonBattle from "../services/PokemonBattle";
 
 function Battle() {
   const [pokemon1, setPokemon1] = useState(null);
@@ -20,26 +21,34 @@ function Battle() {
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
 
-  const performMove = (pokemon, targetPokemon, setTargetPokemon, move) => {
-    const moveChosen = pokemon.moves[move - 1];
-    const newHp = Math.max(0, targetPokemon.hp - moveChosen.power);
+  const handlePerformMove = (
+    pokemon,
+    targetPokemon,
+    setTargetPokemon,
+    move
+  ) => {
+    const { newHp, fainted, nextTurn } = PokemonBattle.performMove(
+      pokemon,
+      targetPokemon,
+      move
+    );
 
     setAttackingPokemon(pokemon);
     setTimeout(() => {
       setAttackingPokemon(null);
     }, 500);
 
-    //target pokemon has fainted
-    if (newHp === 0) {
+    if (fainted) {
       handleWin(pokemon);
       return;
     }
+
     setTargetPokemon({
       ...targetPokemon,
       hp: newHp,
     });
 
-    setTurn(targetPokemon.name);
+    setTurn(nextTurn);
   };
 
   //power is not included in the first fetch
@@ -100,8 +109,10 @@ function Battle() {
   };
 
   const handleStartBattle = () => {
-    setBattleState("battle started");
-    setTurn(pokemon1.name);
+    const { battleState: newBattleState, turn: newTurn } =
+      PokemonBattle.startBattle(pokemon1, pokemon2);
+    setBattleState(newBattleState);
+    setTurn(newTurn);
   };
 
   const handleWin = async (pokemon) => {
@@ -166,7 +177,7 @@ function Battle() {
                   <button
                     className="pokemonOneMoveButton"
                     onClick={() =>
-                      performMove(pokemon1, pokemon2, setPokemon2, 1)
+                      handlePerformMove(pokemon1, pokemon2, setPokemon2, 1)
                     }
                   >
                     Choose Move 1
@@ -174,7 +185,7 @@ function Battle() {
                   <button
                     className="pokemonOneMoveButton"
                     onClick={() =>
-                      performMove(pokemon1, pokemon2, setPokemon2, 2)
+                      handlePerformMove(pokemon1, pokemon2, setPokemon2, 2)
                     }
                   >
                     Choose Move 2
@@ -202,7 +213,7 @@ function Battle() {
                   <button
                     className="pokemonTwoMoveButton"
                     onClick={() =>
-                      performMove(pokemon2, pokemon1, setPokemon1, 1)
+                      handlePerformMove(pokemon2, pokemon1, setPokemon1, 1)
                     }
                   >
                     Choose Move 1
@@ -210,7 +221,7 @@ function Battle() {
                   <button
                     className="pokemonTwoMoveButton"
                     onClick={() =>
-                      performMove(pokemon2, pokemon1, setPokemon1, 2)
+                      handlePerformMove(pokemon2, pokemon1, setPokemon1, 2)
                     }
                   >
                     Choose Move 2
