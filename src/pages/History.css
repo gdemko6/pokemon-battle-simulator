@@ -1,0 +1,13 @@
+.history-page {
+  background-color: #cc0000;
+  min-height: 100vh;
+  padding: 2rem;
+  text-align: center;
+}
+
+.history-title {
+  font-size: 2.5rem;
+  color: #ffcc00;
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
+    1px 1px 0 #000;
+}

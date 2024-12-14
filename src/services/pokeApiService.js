@@ -33,7 +33,7 @@ class pokeApiService {
       });
     } catch (error) {
       console.error(`Error fetching data for ${pokemonName}:`, error);
-      setPokemon(null); // Clear Pokémon data if fetch fails
+      setPokemon(null); // clear Pokémon data if fetch fails
       setError("Pokémon not found. Please try again.");
     }
   }

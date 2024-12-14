@@ -2,12 +2,9 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import Battle from "./pages/Battle";
+import History from "./pages/History";
 
 // Placeholder components for pages
-
-function History() {
-  return <h1>Battle History</h1>;
-}
 
 function About() {
   return <h1>About the App</h1>;

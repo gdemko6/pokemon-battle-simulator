@@ -11,7 +11,7 @@ function Battle() {
   const [pokemon2, setPokemon2] = useState(null);
   const [input1, setInput1] = useState("");
   const [input2, setInput2] = useState("");
-  const [error1, setError1] = useState(""); // Error if Pokémon not found
+  const [error1, setError1] = useState("");
   const [error2, setError2] = useState("");
   const [winner, setWinner] = useState(null);
   const [battleState, setBattleState] = useState("not started");
@@ -83,8 +83,6 @@ function Battle() {
   return (
     <div className="battle-page">
       <h1 className="battle-title">Battle Simulator</h1>
-
-      {winner && <Confetti />}
 
       <div className="battle-inputs">
         <div>
@@ -191,6 +189,7 @@ function Battle() {
         )}
       </div>
 
+      {winner && <Confetti />}
       <div
         className="modal-overlay"
         style={{ display: winner ? "flex" : "none" }}
